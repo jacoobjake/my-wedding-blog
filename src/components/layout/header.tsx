@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Navbar } from 'flowbite-react';
+import { usePathname } from 'next/navigation';
 
 const navigation = [
     { name: 'Home', href: '/home' },
@@ -9,15 +10,18 @@ const navigation = [
 ]
 
 export default function Header() {
+    const pathname = usePathname();
+
     return (
-        <div className="h-24 bg-[url('/background-line-2.svg')] bg-cover flex items-end justify-center mb-2">
-            <Navbar
-                fluid
-                rounded
-                className='ml-auto'
-            >
-                <Navbar.Brand>
-                    {/* <img
+        <div className="h-96 bg-[url('/gallery/main-1.jpg')] bg-cover bg-center">
+            <div className="flex h-14 bg-white bg-opacity-80 py-2">
+                <Navbar
+                    fluid
+                    rounded
+                    className="ml-auto h-10 bg-transparent"
+                >
+                    <Navbar.Brand>
+                        {/* <img
                     alt="Flowbite React Logo"
                     className="mr-3 h-6 sm:h-9"
                     src="/favicon.svg"
@@ -25,27 +29,28 @@ export default function Header() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
                     Flowbite React
                 </span> */}
-                </Navbar.Brand>
-                <Navbar.Collapse>
-                    {
-                        navigation.map((nav, key) => (
-                            <Navbar.Link
-                                key={key}
-                                active
-                                href={nav.href}
-                            >
-                                <p>
-                                    {nav.name}
-                                </p>
-                            </Navbar.Link>
-                        ))
-                    }
-                </Navbar.Collapse>
-            </Navbar>
-            <div className="ml-auto mr-2">
-                <Button>
-                    RSVP
-                </Button>
+                    </Navbar.Brand>
+                    <Navbar.Collapse>
+                        {
+                            navigation.map((nav, key) => (
+                                <Navbar.Link
+                                    key={key}
+                                    active={pathname == nav.href}
+                                    href={nav.href}
+                                >
+                                    <p>
+                                        {nav.name}
+                                    </p>
+                                </Navbar.Link>
+                            ))
+                        }
+                    </Navbar.Collapse>
+                </Navbar>
+                <div className="ml-auto mr-2">
+                    <Button className="bg-pink-300">
+                        RSVP
+                    </Button>
+                </div>
             </div>
         </div>
     )

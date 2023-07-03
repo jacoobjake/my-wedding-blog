@@ -26,9 +26,9 @@ export default function Layout({
         <>
             <div className="z-10 w-full items-center justify-between font-mono text-sm">
                 <div>
-                    <ImgCarousel items={items} />
+                    {/* <ImgCarousel items={items} /> */}
                 </div>
-                <div className="px-12 pt-2">
+                <div className="px-24">
                     {children}
                 </div>
             </div>
