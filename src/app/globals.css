@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-6xl;
+        @apply font-bold;
+        @apply py-4;
+    }
+    h2 {
+        @apply text-5xl;
+        @apply font-bold;
+        @apply py-2;
+    }
+    h3 {
+        @apply text-4xl;
+        @apply font-bold;
+        @apply py-2;
+    }
+}

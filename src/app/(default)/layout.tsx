@@ -19,7 +19,7 @@ export default function Layout({
             <body className="h-full">
                 <div className="min-h-full">
                     <Header />
-                    <main className="">
+                    <main className="pt-14">
                         {children}
                     </main>
                 </div>

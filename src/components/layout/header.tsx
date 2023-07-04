@@ -13,8 +13,8 @@ export default function Header() {
     const pathname = usePathname();
 
     return (
-        <div className="h-96 bg-[url('/gallery/main-1.jpg')] bg-cover bg-center">
-            <div className="flex h-14 bg-white bg-opacity-80 py-2">
+        <div className="fixed z-20 w-full">
+            <div className="flex h-14 bg-white py-2">
                 <Navbar
                     fluid
                     rounded
@@ -47,7 +47,7 @@ export default function Header() {
                     </Navbar.Collapse>
                 </Navbar>
                 <div className="ml-auto mr-2">
-                    <Button className="bg-pink-300">
+                    <Button className="bg-pink-300 hover:bg-pink-200">
                         RSVP
                     </Button>
                 </div>

@@ -20,7 +20,7 @@ interface CarouselProps {
 
 export function ImgCarousel({ items }: CarouselProps) {
     return (
-        <Carousel className="h-96" theme={customTheme}>
+        <Carousel className="h-[32rem]" theme={customTheme}>
             {
                 items.map((item, key) => {
                     return (

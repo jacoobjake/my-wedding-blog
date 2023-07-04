@@ -15,6 +15,10 @@ const items = [
         src: "https://flowbite.com/docs/images/carousel/carousel-3.svg",
         alt: "...",
     },
+    {
+        src: "/gallery/main-1.jpg",
+        alt: "...",
+    },
 ]
 
 export default function Layout({
@@ -24,9 +28,9 @@ export default function Layout({
 }) {
     return (
         <>
-            <div className="z-10 w-full items-center justify-between font-mono text-sm">
+            <div className="z-10 items-center justify-between font-mono text-sm">
                 <div>
-                    {/* <ImgCarousel items={items} /> */}
+                    <ImgCarousel items={items} />
                 </div>
                 <div className="px-24">
                     {children}
