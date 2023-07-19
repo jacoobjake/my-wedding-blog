@@ -24,7 +24,7 @@ export function ImgCarousel({ items }: CarouselProps) {
             {
                 items.map((item, key) => {
                     return (
-                        <img key={key} src={item.src} alt={item.alt ?? ''} />
+                        <img key={key} src={item.src} alt={item.alt ?? ''} className="overflow-x-hidden" />
                     )
                 })
             }
