@@ -1,5 +1,6 @@
 'use client';
 
+import Rsvp from '@/components/modals/rsvp';
 import { Button, Navbar } from 'flowbite-react';
 import { usePathname } from 'next/navigation';
 
@@ -28,9 +29,7 @@ export default function HeaderNav() {
                     </span> */}
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Button className="bg-pink-200 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 ">
-                    RSVP
-                </Button>
+                <Rsvp/>
                 <Navbar.Toggle className="ml-3"/>
             </div>
             <Navbar.Collapse>

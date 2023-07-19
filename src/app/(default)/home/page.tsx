@@ -22,7 +22,7 @@ export default function Home() {
             </div>
             <div className="w-full items-center text-center py-12">
                 <div className="flex-column mx-auto w-3/5 sm:px-12 md:px-16 lg:px-24 xl:px-32 py-12 border-double border-8 items-center text-center">
-                    <p className="text-xl pb-6 italic">Reception</p>
+                    <p className="text-xl pb-6 italic underline">Reception</p>
                     <img className="w-full h-auto" src="/gallery/main-1.jpg" alt="test"></img>
                     <p className="text-2xl pt-12 pb-3">Nov 2, 2023</p>
                     <p className="text-2xl py-6 leading-loose font-bold">Treasure Oasis Vegetarian Restaurant</p>
