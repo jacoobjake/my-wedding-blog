@@ -1,6 +1,7 @@
 'use client'
 
 import Header from '@/components/layout/header'
+import DefaultFooter from '@/components/layout/footer'
 import { useRouter, usePathname } from 'next/navigation'
 
 function classNames(...classes: string[]) {
@@ -22,6 +23,7 @@ export default function Layout({
                     <main className="pt-14">
                         {children}
                     </main>
+                    <DefaultFooter></DefaultFooter>
                 </div>
             </body>
         </html >

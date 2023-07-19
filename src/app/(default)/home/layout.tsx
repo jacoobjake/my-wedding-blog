@@ -28,11 +28,11 @@ export default function Layout({
 }) {
     return (
         <>
-            <div className="z-10 items-center justify-between font-mono text-sm">
+            <div className="items-center justify-between font-mono text-sm">
                 <div>
                     <ImgCarousel items={items} />
                 </div>
-                <div className="px-24">
+                <div className="md:px-24 sm:px-12">
                     {children}
                 </div>
             </div>
