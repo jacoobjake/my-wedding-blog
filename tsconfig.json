@@ -33,6 +33,12 @@
       "@modals/*": [
         "./src/modals/*"
       ],
+      "@theme/*": [
+        "./src/theme/*"
+      ],
+      "@context-provider": [
+        "./src/app/context-provider"
+      ],
     }
   },
   "include": [

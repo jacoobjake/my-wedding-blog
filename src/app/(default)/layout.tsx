@@ -1,5 +1,6 @@
 'use client'
 
+import { OpenModalContextProvider, CurrentUserContextProvider } from '../context-provider'
 import Header from '@/components/layout/header'
 import DefaultFooter from '@/components/layout/footer'
 import { useRouter, usePathname } from 'next/navigation'
@@ -19,10 +20,14 @@ export default function Layout({
         <html className="h-full bg-white">
             <body className="h-full">
                 <div className="min-h-full">
-                    <Header />
-                    <main className="pt-14">
-                        {children}
-                    </main>
+                        <OpenModalContextProvider>
+                            <CurrentUserContextProvider>
+                                <Header />
+                                <main className="pt-14">
+                                    {children}
+                                </main>
+                            </CurrentUserContextProvider>
+                        </OpenModalContextProvider>
                     <DefaultFooter></DefaultFooter>
                 </div>
             </body>
