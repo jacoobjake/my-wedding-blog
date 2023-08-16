@@ -5,17 +5,7 @@ import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-p
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { customTextInputTheme } from '@theme/flowbite';
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
-
-// const customTextInputTheme: CustomFlowbiteTheme['textInput'] = {
-//     field: {
-//         input: {
-//             base: "block w-full border disabled:cursor-not-allowed disabled:opacity-50 text-center placeholder:text-center focus:ring-pink-300 focus:border-pink-300",
-//             colors: {
-//                 pink: "bg-white border-pink-200 text-gray-900 focus:border-pink-300 focus:ring-pink-300",
-//             }
-//         }
-//     },
-// };
+import { searchGuest } from '@/lib/api/guest_list';
 
 const customModalTheme: CustomFlowbiteTheme['modal'] = {
     content: {
@@ -40,27 +30,36 @@ export default function Rsvp() {
                     <p className='py-3 italic'>We are pleased to invite</p>
                     <p className='text-2xl italic font-bold'>{currentUser.name} and {currentUser.plus_one}</p>
                     <p className='py-3 italic'>to the wedding of</p>
-                    <p className='text-4xl font-bold pb-3'>Jake & Yee Huan</p>
-                    <div className="flex flex-row items-center justify-center">
+                    <p className='text-4xl font-bold pt-3 pb-6'>Jake & Yee Huan</p>
+                    <div className="flex flex-row items-center justify-center pb-6">
                         <p className="py-3">Please confirm your attendace for </p>
-                        <TextInput type="text" theme={customTextInputTheme} className="px-3 w-1/12" color="pink" sizing={"md"}/>
+                        <TextInput type="text" theme={customTextInputTheme} className="px-3 w-1/12" color="pink" sizing={"md"} defaultValue={currentUser.pax}/>
                         <p>pax</p>
+                    </div>
+                    <div className="flex flex-row items-center justify-center px-[19rem] pt-6">
+                        <Button size="xl" className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto px-12 py-2" type="submit">
+                            I'll Be There!
+                        </Button>
+                    </div>
+                    <div className="flex flex-row items-center justify-center px-[19rem] pt-6">
+                        <Button className="bg-gray-300 hover:bg-gray-400 enabled:hover:bg-gray-400 focus:bg-gray-400 focus:ring-gray-200 mx-auto" type="submit" size="sm">
+                            Sorry! Can't be there.
+                        </Button>
                     </div>
                 </form>
             )
         }
 
         return (
-            <form id="find_my_details" onSubmit={(e) => {
+            <form id="find_my_details" onSubmit={async (e: React.SyntheticEvent) => {
                 e.preventDefault()
-                const userDataTmp = {
-                    email: "email@mail.com",
-                    name: "Test Name",
-                    plus_one: "Plus One",
-                    invitation_status: "Some Status",
+                const target = e.target as typeof e.target & {
+                    email: { value: string };
                 }
-                console.log(userDataTmp)
-                setCurrentUser(userDataTmp)
+
+                const res = await searchGuest(target.email.value);
+                console.log(res)
+                setCurrentUser(res)
             }}>
                 <TextInput
                     id="email"

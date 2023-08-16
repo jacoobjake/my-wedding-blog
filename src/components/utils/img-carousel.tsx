@@ -20,11 +20,11 @@ interface CarouselProps {
 
 export function ImgCarousel({ items }: CarouselProps) {
     return (
-        <Carousel className="h-[32rem]" theme={customTheme}>
+        <Carousel className="h-[40rem] bg-gray-100" theme={customTheme}>
             {
                 items.map((item, key) => {
                     return (
-                        <img key={key} src={item.src} alt={item.alt ?? ''} className="overflow-x-hidden" />
+                        <img key={key} src={item.src} alt={item.alt ?? ''} className="overflow-x-hidden w-auto h-full" />
                     )
                 })
             }

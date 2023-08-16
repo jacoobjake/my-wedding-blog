@@ -1,6 +1,10 @@
 'use client'
 
+import { useContext } from 'react';
+import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-provider';
+
 export default function Home() {
+    const { openModal, setOpenModal } = useContext(OpenModalContext);
     return (
         <>
             <div className="w-full bg-pink-50 items-center text-center py-12 item-center">
@@ -17,7 +21,10 @@ export default function Home() {
                     <p className="text-2xl py-6 leading-loose">Jake and Yee Huan joyfully request the pleasure of your company as we celebrate our wedding</p>
                 </div>
                 <div className="mx-auto w-1/3 flex pt-12 justify-center">
-                    <a className='underline underline-offset-4 text-4xl border-pink-300 p-4 hover:bg-pink-300 hover:text-white rounded-md' href="#">RSVP</a>
+                    <a className='underline underline-offset-4 text-4xl border-pink-300 p-4 hover:bg-pink-300 hover:text-white rounded-md' href="#" onClick={(e) => {
+                        e.preventDefault()
+                        setOpenModal('rsvp')
+                    }}>RSVP</a>
                 </div>
             </div>
             <div className="w-full items-center text-center py-12">

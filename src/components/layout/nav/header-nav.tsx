@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 const navigation = [
     { name: 'Home', href: '/home' },
     { name: 'Event & Venue', href: '/event' },
-    { name: 'Gallery', href: '#' },
+    { name: 'Gallery', href: '/gallery' },
 ]
 
 export default function HeaderNav() {

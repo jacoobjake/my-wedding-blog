@@ -7,6 +7,8 @@ export interface UserDataObject {
     name: string,
     plus_one: string,
     invitation_status: string,
+    pax: number,
+    is_attending: boolean,
 }
 
 export interface OpenModalContextInterface {

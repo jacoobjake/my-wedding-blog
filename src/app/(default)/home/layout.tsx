@@ -4,19 +4,19 @@ import { ImgCarousel } from "@/components/utils/img-carousel";
 
 const items = [
     {
-        src: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
+        src: "https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21278&authkey=%21AOaxc4SwDfgVfFw&width=5397&height=3602",
         alt: "...",
     },
     {
-        src: "https://flowbite.com/docs/images/carousel/carousel-2.svg",
+        src: "https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21315&authkey=%21APboKt_LtlKrOgI&width=5397&height=3602",
         alt: "...",
     },
     {
-        src: "https://flowbite.com/docs/images/carousel/carousel-3.svg",
+        src: "https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21289&authkey=%21AIFokYMu5OnSwYQ&width=5397&height=3602",
         alt: "...",
     },
     {
-        src: "/gallery/main-1.jpg",
+        src: "https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21300&authkey=%21AEebshBMGB5bVQA&width=5397&height=3602",
         alt: "...",
     },
 ]
