@@ -5,7 +5,7 @@ import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-p
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { customTextInputTheme } from '@theme/flowbite';
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
-import { searchGuest } from '@/lib/api/guest_list';
+import { searchGuest, update } from '@/lib/api/guest_list';
 
 const customModalTheme: CustomFlowbiteTheme['modal'] = {
     content: {
@@ -20,29 +20,88 @@ export default function Rsvp() {
     const { openModal, setOpenModal }  = useContext(OpenModalContext);
     const { currentUser, setCurrentUser }  = useContext(CurrentUserContext);
 
+    async function updateInvitation(is_attending: boolean) {
+        const pax = document.querySelector('#pax') as HTMLInputElement
+        const guest_id = document.querySelector('#guest_id') as HTMLInputElement
+
+        const data = {
+            pax: pax.value,
+            is_attending: is_attending,
+            confirmed: true,
+            format: 'json',
+        }
+
+        const currentUser = await update(guest_id.value, data)
+        setCurrentUser(currentUser)
+    }
+
     function RsvpForm() {
         if (currentUser) {
+            if (currentUser.confirmed) {
+                return (
+                    <form id="invitation_form">
+                        <input type="hidden" id="guest_id" defaultValue={currentUser.id}></input>
+                        <div className="flex flex-col md:flex-row items-center justify-center pb-3">
+                            <p className='py-3 italic'>Thank you for confirming your attendance for </p>
+                            <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="pink" sizing={"md"} defaultValue={currentUser.pax} />
+                            <p>pax</p>
+                        </div>
+                        <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one : '')}</p>
+                        <p className='pt-3 pb-6 italic'>for the wedding of</p>
+                        <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-pink-200 rounded-lg lg:mx-24 xl:mx-48'>
+                            <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
+                            <p className='text-xl md:text-2xl font-bold pt-3 pb-6 px-3 md:px-6 italic'> & </p>
+                            {/* <p className='text-5xl font-bold pt-3 pb-6'>Yee Huan</p> */}
+                            <div className='flex-col justify-center items-center text-3xl md:text-5xl font-bold'>
+                                <p>Yee</p>
+                                <p>Huan</p>
+                            </div>
+                        </div>
+                        <p className='text-xl font-bold italic pb-6 pt-6'>{currentUser.is_attending ? 'See You There!' : 'Maybe Next Time...'}</p>
+                        <p className='italic text-sm'>Changed your mind?</p>
+                        {
+                            currentUser.is_attending ? 
+                            <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
+                                <Button className="bg-gray-300 hover:bg-gray-400 enabled:hover:bg-gray-400 focus:bg-gray-400 focus:ring-gray-200 mx-auto" size="lg" onClick={() => updateInvitation(false)}>
+                                    Sorry! Something Came Up...
+                                </Button>
+                            </div> : 
+                            <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
+                                <Button size="lg" className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto" onClick={() => updateInvitation(true)} >
+                                    I'll Be There!
+                                </Button>
+                            </div>
+                        }                        
+                    </form>
+                )
+            }
             return (
-                <form id="invitation_form" onSubmit={(e) => {
-                    e.preventDefault()
-                    console.log(e)
-                }}>
+                <form id="invitation_form">
+                    <input type="hidden" id="guest_id" defaultValue={currentUser.id}></input>
                     <p className='py-3 italic'>We are pleased to invite</p>
-                    <p className='text-2xl italic font-bold'>{currentUser.name} and {currentUser.plus_one}</p>
+                    <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one: '') }</p>
                     <p className='py-3 italic'>to the wedding of</p>
-                    <p className='text-4xl font-bold pt-3 pb-6'>Jake & Yee Huan</p>
-                    <div className="flex flex-row items-center justify-center pb-6">
+                    <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-pink-200 rounded-lg lg:mx-24 xl:mx-48'>
+                        <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
+                        <p className='text-xl md:text-2xl font-bold pt-3 pb-6 px-3 md:px-6 italic'> & </p>
+                        {/* <p className='text-5xl font-bold pt-3 pb-6'>Yee Huan</p> */}
+                        <div className='flex-col justify-center items-center text-3xl md:text-5xl font-bold'>
+                            <p>Yee</p>
+                            <p>Huan</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row items-center justify-center py-3">
                         <p className="py-3">Please confirm your attendace for </p>
-                        <TextInput type="text" theme={customTextInputTheme} className="px-3 w-1/12" color="pink" sizing={"md"} defaultValue={currentUser.pax}/>
+                        <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="pink" sizing={"md"} defaultValue={currentUser.pax}/>
                         <p>pax</p>
                     </div>
-                    <div className="flex flex-row items-center justify-center px-[19rem] pt-6">
-                        <Button size="xl" className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto px-12 py-2" type="submit">
+                    <div className="flex flex-row items-center justify-center md:px-[19rem] pt-3">
+                        <Button size="xl" className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto py-2" onClick={() => updateInvitation(true)} >
                             I'll Be There!
                         </Button>
                     </div>
-                    <div className="flex flex-row items-center justify-center px-[19rem] pt-6">
-                        <Button className="bg-gray-300 hover:bg-gray-400 enabled:hover:bg-gray-400 focus:bg-gray-400 focus:ring-gray-200 mx-auto" type="submit" size="sm">
+                    <div className="flex flex-row items-center justify-center md:px-[19rem] pt-3">
+                        <Button className="bg-gray-300 hover:bg-gray-400 enabled:hover:bg-gray-400 focus:bg-gray-400 focus:ring-gray-200 mx-auto" size="sm" onClick={() => updateInvitation(false)}>
                             Sorry! Can't be there.
                         </Button>
                     </div>
@@ -54,22 +113,24 @@ export default function Rsvp() {
             <form id="find_my_details" onSubmit={async (e: React.SyntheticEvent) => {
                 e.preventDefault()
                 const target = e.target as typeof e.target & {
-                    email: { value: string };
+                    keyword: { value: string };
                 }
 
-                const res = await searchGuest(target.email.value);
-                console.log(res)
-                setCurrentUser(res)
+                const user = await searchGuest(target.keyword.value);
+                setCurrentUser(user)
             }}>
-                <TextInput
-                    id="email"
-                    placeholder="name@flowbite.com"
-                    required
-                    type="email"
-                    className="p-6 w-1/2 mx-auto placeholder:mx-16"
-                    theme={customTextInputTheme}
-                    color="pink"
-                />
+                <div className='p-6'>
+                    <TextInput
+                        id="keyword"
+                        placeholder="Enter your email or phone"
+                        helperText={<span className='italic text-gray-400'>Example: example@mail.com or 0123456788</span>}
+                        required
+                        type="text"
+                        className="md:w-1/2 mx-auto placeholder:mx-16"
+                        theme={customTextInputTheme}
+                        color="pink"
+                    />
+                </div>
                 <Button className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto" type="submit">
                     Find My Details
                 </Button>
@@ -84,8 +145,8 @@ export default function Rsvp() {
             </Button>
             <Modal dismissible show={openModal === 'rsvp'} size="7xl" onClose={() => setOpenModal(undefined)} theme={customModalTheme}>
                 <Modal.Header className="flex items-center justify-center rounded-t dark:border-gray-600 border-none p-5"></Modal.Header>
-                <Modal.Body className="flex-column sm:px-12 md:px-16 lg:px-24 xl:px-32 pb-6 items-center text-center">
-                    <p className="text-5xl pb-6 font-bold">RSVP</p>
+                <Modal.Body className="flex-column sm:px-12 md:px-16 lg:px-24 xl:px-32 items-center text-center">
+                    <p className="text-3xl md:text-5xl pb-6 font-bold">RSVP</p>
                     <RsvpForm/>
                 </Modal.Body>
                 <Modal.Footer className='border-none flex flex-row justify-center items-center'>

@@ -11,7 +11,12 @@ const photos = [
 export default function Gallery() {
     return (
         <div className="px-24">
-            <PhotoAlbum layout="masonry" photos={photos}/>
+            <PhotoAlbum layout="rows" photos={photos} rowConstraints={() => {
+                return {
+                    minPhotos: 2,
+                    maxPhotos: 4
+                }
+            }} />
         </div>
     )
 }

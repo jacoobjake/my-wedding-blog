@@ -1,16 +1,23 @@
 'use client'
 
+import axiosHelper from "./axios";
+
 const baseurl = process.env.NEXT_PUBLIC_API_URL
 
 export async function searchGuest(keyword : string)
 {
-    console.log(baseurl);
     const url = `${baseurl}guests-by-details/?keyword=${keyword}`;
-    const res = await fetch(url)
-    return res.json();
+    const response = await axiosHelper('get', url);
+    if(response) {
+        return response.data.data;
+    }
 }
 
-export async function update()
+export async function update(id:string, data:Object)
 {
-
+    const url = `${baseurl}guests/${id}/`;
+    const response = await axiosHelper('patch', url, data)
+    if (response) {
+        return response.data.data;
+    }
 }
