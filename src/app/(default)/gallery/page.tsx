@@ -1,22 +1,24 @@
 'use client'
 
-import PhotoAlbum from "react-photo-album";
-// import photos from "./photos";
+import { Photo } from "react-photo-album";
+import { useState, useEffect } from "react";
+import PhotoAlbumComponent from "@/components/utils/photo-album";
+import { gallery } from "@/lib/api/photo";
 
-const photos = [
-    { src: "https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21300&authkey=%21AEebshBMGB5bVQA&width=5397&height=3602", width: 5397, height: 3602 },
-    { src: "https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21299&authkey=%21AM7VO_WRKvAF6zw&width=3602&height=5397", width: 3602, height: 5397 },
-];
+export default async function Gallery() {
+    const [photos, setPhotos] = useState<Photo[]>([]);
+    async function getGallery() {
+        const items = await gallery()
+        setPhotos(items);
+    }
 
-export default function Gallery() {
+    useEffect(() => {
+        getGallery()
+    }, []);
+
     return (
         <div className="px-24">
-            <PhotoAlbum layout="rows" photos={photos} rowConstraints={() => {
-                return {
-                    minPhotos: 2,
-                    maxPhotos: 4
-                }
-            }} />
+            <PhotoAlbumComponent photos={photos} />
         </div>
     )
 }
