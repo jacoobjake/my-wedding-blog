@@ -1,37 +1,18 @@
-'use client'
+// 'use client'
 
-import { useEffect, useContext, useState } from 'react';
-import { Photo } from 'react-photo-album';
-import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-provider';
-import { ImgCarousel } from '@/components/utils/img-carousel';
-import { carousel } from '@/lib/api/photo';
-
-async function RsvpButton()
-{
-    const { openModal, setOpenModal } = useContext(OpenModalContext);
-
-    return (<a className='transition duration-700 underline underline-offset-4 text-2xl md:text-4xl border-moss-green p-4 hover:bg-moss-green hover:text-white rounded-md' href="#" onClick={(e) => {
-        e.preventDefault()
-        setOpenModal('rsvp')
-    }}>RSVP</a>)
-}
+import { Suspense } from 'react';
+import HomeCarousel from '@/components/utils/home-carousel';
+import Loading from '../loading';
+import { RsvpButton } from './rsvpBtn';
 
 export default async function Home() {
-    const [items, setItems] = useState<Photo[]>([]);
-
-    async function getCarousel() {
-        const items = await carousel()
-        setItems(items);
-    }
-
-    useEffect(() => {
-        getCarousel()
-    }, []);
 
     return (
         <>
             <div>
-                <ImgCarousel items={items} />
+                <Suspense fallback={<Loading></Loading>}>
+                    <HomeCarousel/>
+                </Suspense>
             </div>
             <div className="md:px-24 sm:px-12 text-gray-600">
                 <div className="w-full bg-beige items-center text-center py-12 item-center">

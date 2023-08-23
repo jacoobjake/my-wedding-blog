@@ -15,9 +15,8 @@ interface PhotoObject {
     is_event_cover: boolean,
 }
 
-function mapResult(data: Photo[])
-{
-    return data.map((photo) => ({
+function mapData(photo: Photo) {
+    return {
         src: photo.src,
         width: photo.width,
         height: photo.height,
@@ -29,7 +28,12 @@ function mapResult(data: Photo[])
                 height,
             };
         }),
-    })) as Photo[];
+    } as Photo
+}
+
+function mapResult(data: Photo[])
+{
+    return data.map(mapData) as Photo[];
 }
 
 export async function carousel() {
@@ -48,4 +52,12 @@ export async function gallery() {
         return mapResult(response.data.data);
     }
     return []
+}
+
+export async function eventHeader() {
+    const url = `${baseurl}photos/event/`;
+    const response = await axiosHelper('get', url);
+    if (response) {
+        return mapData(response.data.data);
+    }
 }
