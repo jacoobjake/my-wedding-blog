@@ -10,7 +10,7 @@ async function RsvpButton()
 {
     const { openModal, setOpenModal } = useContext(OpenModalContext);
 
-    return (<a className='underline underline-offset-4 text-2xl md:text-4xl border-pink-300 p-4 hover:bg-pink-300 hover:text-white rounded-md' href="#" onClick={(e) => {
+    return (<a className='transition duration-700 underline underline-offset-4 text-2xl md:text-4xl border-moss-green p-4 hover:bg-moss-green hover:text-white rounded-md' href="#" onClick={(e) => {
         e.preventDefault()
         setOpenModal('rsvp')
     }}>RSVP</a>)
@@ -33,12 +33,12 @@ export default async function Home() {
             <div>
                 <ImgCarousel items={items} />
             </div>
-            <div className="md:px-24 sm:px-12">
-                <div className="w-full bg-pink-50 items-center text-center py-12 item-center">
+            <div className="md:px-24 sm:px-12 text-gray-600">
+                <div className="w-full bg-beige items-center text-center py-12 item-center">
                     <div className="mx-auto pb-2 w-10/12">
                         <p className="md:text-base py-6">IN CELEBRATION OF OUR WEDDING</p>
                     </div>
-                    <div className="mx-auto py-12 md:py-24 border-y-4 w-3/4">
+                    <div className="mx-auto py-12 md:py-24 border-y-4 border-french-beige w-3/4">
                         <p className='text-3xl md:text-7xl font-bold py-4'>Jake</p>
                         <p className="md:text-3xl py-2 italic">- and -</p>
                         <p className='text-3xl md:text-7xl font-bold py-4'>Yee Huan</p>

@@ -9,7 +9,7 @@ import { searchGuest, update } from '@/lib/api/guest_list';
 
 const customModalTheme: CustomFlowbiteTheme['modal'] = {
     content: {
-        inner: "relative rounded-lg bg-white flex flex-col max-h-[90vh] border-double border-[12px]",
+        inner: "relative rounded-lg bg-white flex flex-col max-h-[90vh] border-double border-[12px] border-dirty-white",
     },
     header: {
         title: "text-xl font-medium text-gray-900 dark:text-white",
@@ -43,12 +43,12 @@ export default function Rsvp() {
                         <input type="hidden" id="guest_id" defaultValue={currentUser.id}></input>
                         <div className="flex flex-col md:flex-row items-center justify-center pb-3">
                             <p className='py-3 italic'>Thank you for confirming your attendance for </p>
-                            <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="pink" sizing={"md"} defaultValue={currentUser.pax} />
+                            <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax} />
                             <p>pax</p>
                         </div>
                         <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one : '')}</p>
                         <p className='pt-3 pb-6 italic'>for the wedding of</p>
-                        <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-pink-200 rounded-lg lg:mx-24 xl:mx-48'>
+                        <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-moss-green rounded-lg lg:mx-24 xl:mx-48'>
                             <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
                             <p className='text-xl md:text-2xl font-bold pt-3 pb-6 px-3 md:px-6 italic'> & </p>
                             {/* <p className='text-5xl font-bold pt-3 pb-6'>Yee Huan</p> */}
@@ -67,7 +67,7 @@ export default function Rsvp() {
                                 </Button>
                             </div> : 
                             <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
-                                <Button size="lg" className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto" onClick={() => updateInvitation(true)} >
+                                <Button size="lg" className="bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green mx-auto" onClick={() => updateInvitation(true)} >
                                     I'll Be There!
                                 </Button>
                             </div>
@@ -81,7 +81,7 @@ export default function Rsvp() {
                     <p className='py-3 italic'>We are pleased to invite</p>
                     <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one: '') }</p>
                     <p className='py-3 italic'>to the wedding of</p>
-                    <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-pink-200 rounded-lg lg:mx-24 xl:mx-48'>
+                    <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-moss-green rounded-lg lg:mx-24 xl:mx-48'>
                         <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
                         <p className='text-xl md:text-2xl font-bold pt-3 pb-6 px-3 md:px-6 italic'> & </p>
                         {/* <p className='text-5xl font-bold pt-3 pb-6'>Yee Huan</p> */}
@@ -92,11 +92,11 @@ export default function Rsvp() {
                     </div>
                     <div className="flex flex-col md:flex-row items-center justify-center py-3">
                         <p className="py-3">Please confirm your attendace for </p>
-                        <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="pink" sizing={"md"} defaultValue={currentUser.pax}/>
+                        <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax}/>
                         <p>pax</p>
                     </div>
                     <div className="flex flex-row items-center justify-center md:px-[19rem] pt-3">
-                        <Button size="xl" className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto py-2" onClick={() => updateInvitation(true)} >
+                        <Button size="xl" className="bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green mx-auto py-2" onClick={() => updateInvitation(true)} >
                             I'll Be There!
                         </Button>
                     </div>
@@ -128,10 +128,10 @@ export default function Rsvp() {
                         type="text"
                         className="md:w-1/2 mx-auto placeholder:mx-16"
                         theme={customTextInputTheme}
-                        color="pink"
+                        color="mine"
                     />
                 </div>
-                <Button className="bg-pink-300 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 mx-auto" type="submit">
+                <Button className="bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green mx-auto" type="submit">
                     Find My Details
                 </Button>
             </form>
@@ -140,7 +140,7 @@ export default function Rsvp() {
 
     return (
         <>
-            <Button className="bg-pink-200 hover:bg-pink-400 enabled:hover:bg-pink-400 focus:bg-pink-400 focus:ring-pink-200 " onClick={() => setOpenModal('rsvp')}>
+            <Button className="transition duration-700 bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green " onClick={() => setOpenModal('rsvp')}>
                 RSVP
             </Button>
             <Modal dismissible show={openModal === 'rsvp'} size="7xl" onClose={() => setOpenModal(undefined)} theme={customModalTheme}>

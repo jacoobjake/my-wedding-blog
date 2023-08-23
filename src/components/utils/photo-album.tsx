@@ -10,7 +10,7 @@ export default async function PhotoAlbumComponent({photos} : {photos:Photo[]}) {
     const [index, setIndex] = useState(-1);
 
     return (
-        <div className="px-24">
+        <div className="px-12">
             <PhotoAlbum layout="rows" photos={photos} rowConstraints={() => {
                 return {
                     minPhotos: 2,

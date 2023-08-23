@@ -17,7 +17,7 @@ export default async function Gallery() {
     }, []);
 
     return (
-        <div className="px-24">
+        <div className="md:px-24">
             <PhotoAlbumComponent photos={photos} />
         </div>
     )
