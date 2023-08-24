@@ -1,11 +1,21 @@
-// 'use client'
+'use client'
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import HomeCarousel from '@/components/utils/home-carousel';
 import Loading from '../loading';
 import { RsvpButton } from './rsvpBtn';
+import { useSearchParams } from 'next/navigation';
+import ModalController from '@/components/utils/modal-controller';
 
 export default async function Home() {
+    const searchParams = useSearchParams()
+    const queryUserId = searchParams.get('user_id')
+    const queryRsvp = searchParams.get('rsvp')
+    useEffect(() => {
+        if (queryUserId && queryRsvp) {
+            ModalController.showModal()
+        }
+    }, []);
 
     return (
         <>

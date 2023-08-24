@@ -21,3 +21,12 @@ export async function update(id:string, data:Object)
         return response.data.data;
     }
 }
+
+export async function get(id:string)
+{
+    const url = `${baseurl}guests/${id}/`;
+    const response = await axiosHelper('get', url)
+    if (response) {
+        return response.data.data;
+    }
+}

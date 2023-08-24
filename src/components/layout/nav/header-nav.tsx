@@ -1,8 +1,8 @@
 'use client';
 
-import Rsvp from '@/components/modals/rsvp';
 import { Button, Navbar } from 'flowbite-react';
 import { usePathname } from 'next/navigation';
+import ModalController from '@/components/utils/modal-controller';
 
 const navigation = [
     { name: 'Home', href: '/home' },
@@ -29,7 +29,9 @@ export default function HeaderNav() {
                     </span> */}
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Rsvp/>
+                <Button className="transition duration-700 bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green " onClick={() => { ModalController.showModal()}}>
+                    RSVP
+                </Button>
                 <Navbar.Toggle className="ml-3"/>
             </div>
             <Navbar.Collapse>

@@ -1,13 +1,11 @@
 'use client';
 
-import { useState, useRef, useImperativeHandle, forwardRef, useEffect } from 'react';
+import { useContext } from 'react';
 import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-provider';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { customTextInputTheme } from '@theme/flowbite';
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
-import { searchGuest, update, get } from '@/lib/api/guest_list';
-import ModalController, { ModalRef } from '../utils/modal-controller';
-import { useSearchParams } from 'next/navigation';
+import { searchGuest, update } from '@/lib/api/guest_list';
 
 const customModalTheme: CustomFlowbiteTheme['modal'] = {
     content: {
@@ -18,33 +16,9 @@ const customModalTheme: CustomFlowbiteTheme['modal'] = {
     }
 };
 
-const RsvpModal = () => {
-    const [openModal, setOpenModal] = useState<string|undefined>();
-    const [currentUser, setCurrentUser] = useState<UserDataObject | undefined>();
-    const modalRef = useRef<ModalRef>();
-    const searchParams = useSearchParams()
-    const queryUserId = searchParams.get('user_id')
-
-    useEffect(() => {
-        ModalController.setModalRef(modalRef)
-    }, [])
-    
-    useImperativeHandle(
-        modalRef,
-        () => ({
-            show: async () => {
-                if (queryUserId) {
-                    const user = await get(queryUserId);
-                    setCurrentUser(user)
-                }
-                setOpenModal('rsvp');
-            },
-            hide: () => {
-                setOpenModal(undefined);
-            },
-        }),
-        []
-    );
+export default function RsvpOld() {
+    const { openModal, setOpenModal }  = useContext(OpenModalContext);
+    const { currentUser, setCurrentUser }  = useContext(CurrentUserContext);
 
     async function updateInvitation(is_attending: boolean) {
         const pax = document.querySelector('#pax') as HTMLInputElement
@@ -86,18 +60,18 @@ const RsvpModal = () => {
                         <p className='text-xl font-bold italic pb-6 pt-6'>{currentUser.is_attending ? 'See You There!' : 'Maybe Next Time...'}</p>
                         <p className='italic text-sm'>Changed your mind?</p>
                         {
-                            currentUser.is_attending ?
-                                <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
-                                    <Button className="bg-gray-300 hover:bg-gray-400 enabled:hover:bg-gray-400 focus:bg-gray-400 focus:ring-gray-200 mx-auto" size="lg" onClick={() => updateInvitation(false)}>
-                                        Sorry! Something Came Up...
-                                    </Button>
-                                </div> :
-                                <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
-                                    <Button size="lg" className="bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green mx-auto" onClick={() => updateInvitation(true)} >
-                                        I'll Be There!
-                                    </Button>
-                                </div>
-                        }
+                            currentUser.is_attending ? 
+                            <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
+                                <Button className="bg-gray-300 hover:bg-gray-400 enabled:hover:bg-gray-400 focus:bg-gray-400 focus:ring-gray-200 mx-auto" size="lg" onClick={() => updateInvitation(false)}>
+                                    Sorry! Something Came Up...
+                                </Button>
+                            </div> : 
+                            <div className="flex flex-row items-center justify-center xl:px-[19rem] pt-3">
+                                <Button size="lg" className="bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green mx-auto" onClick={() => updateInvitation(true)} >
+                                    I'll Be There!
+                                </Button>
+                            </div>
+                        }                        
                     </form>
                 )
             }
@@ -105,7 +79,7 @@ const RsvpModal = () => {
                 <form id="invitation_form">
                     <input type="hidden" id="guest_id" defaultValue={currentUser.id}></input>
                     <p className='py-3 italic'>We are pleased to invite</p>
-                    <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one : '')}</p>
+                    <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one: '') }</p>
                     <p className='py-3 italic'>to the wedding of</p>
                     <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-moss-green rounded-lg lg:mx-24 xl:mx-48'>
                         <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
@@ -118,7 +92,7 @@ const RsvpModal = () => {
                     </div>
                     <div className="flex flex-col md:flex-row items-center justify-center py-3">
                         <p className="py-3">Please confirm your attendace for </p>
-                        <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax} />
+                        <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax}/>
                         <p>pax</p>
                     </div>
                     <div className="flex flex-row items-center justify-center md:px-[19rem] pt-3">
@@ -166,17 +140,20 @@ const RsvpModal = () => {
 
     return (
         <>
+            <Button className="transition duration-700 bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green " onClick={() => setOpenModal('rsvp')}>
+                RSVP
+            </Button>
             <Modal dismissible show={openModal === 'rsvp'} size="7xl" onClose={() => setOpenModal(undefined)} theme={customModalTheme}>
                 <Modal.Header className="flex items-center justify-center rounded-t dark:border-gray-600 border-none p-5"></Modal.Header>
                 <Modal.Body className="flex-column sm:px-12 md:px-16 lg:px-24 xl:px-32 items-center text-center">
                     <p className="text-3xl md:text-5xl pb-6 font-bold">RSVP</p>
-                    <RsvpForm />
+                    <RsvpForm/>
                 </Modal.Body>
                 <Modal.Footer className='border-none flex flex-row justify-center items-center'>
                     {
-                        currentUser ?
-                            <a className="text-sm italic underline underline-offset-2" onClick={() => setCurrentUser(undefined)}>Not you? Search again.</a>
-                            : <></>
+                        currentUser ? 
+                        <a className="text-sm italic underline underline-offset-2" onClick={() => setCurrentUser(undefined)}>Not you? Search again.</a>
+                        : <></>
                     }
                 </Modal.Footer>
             </Modal>
@@ -184,4 +161,4 @@ const RsvpModal = () => {
     )
 }
 
-export default forwardRef(RsvpModal)
+
