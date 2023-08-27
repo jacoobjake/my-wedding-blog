@@ -4,7 +4,7 @@ import { useState, useRef, useImperativeHandle, forwardRef, useEffect } from 're
 import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-provider';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { customTextInputTheme } from '@theme/flowbite';
-import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
+import { Button, Textarea, Label, Modal, TextInput } from 'flowbite-react';
 import { searchGuest, update, get } from '@/lib/api/guest_list';
 import ModalController, { ModalRef } from '../utils/modal-controller';
 import { useSearchParams } from 'next/navigation';
@@ -49,12 +49,14 @@ const RsvpModal = () => {
     async function updateInvitation(is_attending: boolean) {
         const pax = document.querySelector('#pax') as HTMLInputElement
         const guest_id = document.querySelector('#guest_id') as HTMLInputElement
+        const remarks = document.querySelector('#remarks') as HTMLInputElement
 
         const data = {
             pax: pax.value,
             is_attending: is_attending,
             confirmed: true,
             format: 'json',
+            remarks: remarks.value,
         }
 
         const currentUser = await update(guest_id.value, data)
@@ -72,7 +74,7 @@ const RsvpModal = () => {
                             <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax} />
                             <p>pax</p>
                         </div>
-                        <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one : '')}</p>
+                        <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' ' + currentUser.plus_one : '')}</p>
                         <p className='pt-3 pb-6 italic'>for the wedding of</p>
                         <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-moss-green rounded-lg lg:mx-24 xl:mx-48'>
                             <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
@@ -83,6 +85,26 @@ const RsvpModal = () => {
                                 <p>Huan</p>
                             </div>
                         </div>
+                        {
+                            currentUser.is_attending ? 
+                            <div className="max-w-md mx-auto py-3">
+                                <div className="mb-2 block">
+                                    <Label
+                                        htmlFor="remarks"
+                                        value="Your Remarks"
+                                        className='italic'
+                                    />
+                                </div>
+                                <Textarea
+                                    id="remarks"
+                                    placeholder="Reservation remarks, e.g: Allergen, number of infants, etc..."
+                                    rows={2}
+                                    value={currentUser.remarks}
+                                    className='text-center'
+                                />
+                            </div> :
+                            ''
+                        }
                         <p className='text-xl font-bold italic pb-6 pt-6'>{currentUser.is_attending ? 'See You There!' : 'Maybe Next Time...'}</p>
                         <p className='italic text-sm'>Changed your mind?</p>
                         {
@@ -105,7 +127,7 @@ const RsvpModal = () => {
                 <form id="invitation_form">
                     <input type="hidden" id="guest_id" defaultValue={currentUser.id}></input>
                     <p className='py-3 italic'>We are pleased to invite</p>
-                    <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' and ' + currentUser.plus_one : '')}</p>
+                    <p className='text-2xl italic font-bold py-3 text-gray-600'>{currentUser.name + (currentUser.plus_one ? ' ' + currentUser.plus_one : '')}</p>
                     <p className='py-3 italic'>to the wedding of</p>
                     <div className='flex justify-center items-center py-3 md:py-9 border-8 border-double border-moss-green rounded-lg lg:mx-24 xl:mx-48'>
                         <p className='text-3xl md:text-5xl font-bold pt-3 pb-6'>Jake</p>
@@ -120,6 +142,21 @@ const RsvpModal = () => {
                         <p className="py-3">Please confirm your attendace for </p>
                         <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax} />
                         <p>pax</p>
+                    </div>
+                    <div className="max-w-md mx-auto py-3">
+                        <div className="mb-2 block">
+                            <Label
+                                htmlFor="remarks"
+                                value="Your Remarks"
+                                className='italic'
+                            />
+                        </div>
+                        <Textarea
+                            id="remarks"
+                            placeholder="Reservation remarks, e.g: Allergen, number of infants, etc..."
+                            rows={2}
+                            className='text-center'
+                        />
                     </div>
                     <div className="flex flex-row items-center justify-center md:px-[19rem] pt-3">
                         <Button size="xl" className="bg-tea-green hover:bg-moss-green enabled:hover:bg-apple-green focus:bg-moss-green focus:ring-apple-green mx-auto py-2" onClick={() => updateInvitation(true)} >

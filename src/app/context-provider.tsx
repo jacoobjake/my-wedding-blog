@@ -13,6 +13,7 @@ export interface UserDataObject {
     pax: number,
     is_attending: boolean,
     confirmed: boolean,
+    remarks: string,
 }
 
 export interface OpenModalContextInterface {
