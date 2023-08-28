@@ -23,7 +23,7 @@ const RsvpModal = () => {
     const [currentUser, setCurrentUser] = useState<UserDataObject | undefined>();
     const modalRef = useRef<ModalRef>();
     const searchParams = useSearchParams()
-    const queryUserId = searchParams.get('user_id')
+    const queryGuestId = searchParams.get('guest_id')
 
     useEffect(() => {
         ModalController.setModalRef(modalRef)
@@ -33,8 +33,8 @@ const RsvpModal = () => {
         modalRef,
         () => ({
             show: async () => {
-                if (queryUserId) {
-                    const user = await get(queryUserId);
+                if (queryGuestId) {
+                    const user = await get(queryGuestId);
                     setCurrentUser(user)
                 }
                 setOpenModal('rsvp');
@@ -176,17 +176,29 @@ const RsvpModal = () => {
             <form id="find_my_details" onSubmit={async (e: React.SyntheticEvent) => {
                 e.preventDefault()
                 const target = e.target as typeof e.target & {
-                    keyword: { value: string };
+                    // keyword: { value: string };
+                    guest_id: { value: string };
                 }
 
-                const user = await searchGuest(target.keyword.value);
+                // const user = await searchGuest(target.keyword.value);
+                const user = await get(target.guest_id.value);
                 setCurrentUser(user)
             }}>
                 <div className='p-6'>
-                    <TextInput
+                    {/* <TextInput
                         id="keyword"
                         placeholder="Enter your email or phone"
                         helperText={<span className='italic text-gray-400'>Example: example@mail.com or 0123456788</span>}
+                        required
+                        type="text"
+                        className="md:w-1/2 mx-auto placeholder:mx-16"
+                        theme={customTextInputTheme}
+                        color="mine"
+                    /> */}
+                    <TextInput
+                        id="guest_id"
+                        placeholder="Enter your Guest Id"
+                        helperText={<span className='italic text-gray-400'>Example: 64eb6f89f8d6411820729459</span>}
                         required
                         type="text"
                         className="md:w-1/2 mx-auto placeholder:mx-16"

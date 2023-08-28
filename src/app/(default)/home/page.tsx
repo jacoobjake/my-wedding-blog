@@ -9,10 +9,10 @@ import ModalController from '@/components/utils/modal-controller';
 
 export default async function Home() {
     const searchParams = useSearchParams()
-    const queryUserId = searchParams.get('user_id')
+    const queryGuestId = searchParams.get('guest_id')
     const queryRsvp = searchParams.get('rsvp')
     useEffect(() => {
-        if (queryUserId && queryRsvp) {
+        if (queryGuestId && queryRsvp) {
             ModalController.showModal()
         }
     }, []);
