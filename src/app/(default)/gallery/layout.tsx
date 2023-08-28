@@ -1,7 +1,7 @@
 // 'use client'
 import type { Metadata } from 'next'
 export const metadata: Metadata = {
-    title: "Jake & Yee Huan",
+    title: "Gallery",
 }
 
 export default function Layout({

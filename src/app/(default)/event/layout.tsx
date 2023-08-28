@@ -1,4 +1,8 @@
-'use client'
+// 'use client'
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+    title: "Event & Venue",
+}
 
 export default function Layout({
     children,
