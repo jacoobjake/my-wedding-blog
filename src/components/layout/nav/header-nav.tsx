@@ -41,7 +41,7 @@ export default function HeaderNav() {
                             key={key}
                             active={pathname == nav.href}
                             href={nav.href}
-                            className={"text-black active:bg-moss-green" + (pathname == nav.href ? ' bg-tea-green ' : ' bg-white ') + (key == 0 ? ' rounded-t-md border-t-2 border-x-2 ' : key + 1 == row.length ? ' rounded-b-md border-y-2 border-x-2 ' : ' rounded-none border-x-2')}
+                            className={"text-black active:bg-moss-green md:border-none" + (pathname == nav.href ? ' bg-tea-green ' : ' bg-white ') + (key == 0 ? ' rounded-t-md border-t-2 border-x-2 ' : key + 1 == row.length ? ' rounded-b-md border-b-2 border-x-2 ' : ' rounded-none border-x-2')}
                         >
                             <p>
                                 {nav.name}
