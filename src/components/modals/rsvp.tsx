@@ -104,26 +104,22 @@ const RsvpModal = () => {
                                 <p>Huan</p>
                             </div>
                         </div>
-                        {
-                            currentUser.is_attending ? 
-                            <div className="max-w-md mx-auto py-3">
-                                <div className="mb-2 block">
-                                    <Label
-                                        htmlFor="remarks"
-                                        value="Your Remarks"
-                                        className='italic'
-                                    />
-                                </div>
-                                <Textarea
-                                    id="remarks"
-                                    placeholder="Reservation remarks, e.g: Allergen, number of infants, etc..."
-                                    rows={2}
-                                    value={currentUser.remarks}
-                                    className='text-center'
+                        <div className="max-w-md mx-auto py-3">
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="remarks"
+                                    value="Your Remarks"
+                                    className='italic'
                                 />
-                            </div> :
-                            ''
-                        }
+                            </div>
+                            <Textarea
+                                id="remarks"
+                                placeholder="Reservation remarks, e.g: Allergen, number of infants, etc..."
+                                rows={2}
+                                value={currentUser.remarks}
+                                className='text-center'
+                            />
+                        </div>
                         <p className='text-xl font-bold italic pb-6 pt-6'>{currentUser.is_attending ? 'See You There!' : 'Maybe Next Time...'}</p>
                         <p className='italic text-sm'>Changed your mind?</p>
                         {
