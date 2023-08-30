@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useImperativeHandle, forwardRef, useEffect } from 'react';
+import { useState, useRef, useImperativeHandle, forwardRef, useEffect, createRef } from 'react';
 import { UserDataObject, CurrentUserContext, OpenModalContext } from '@context-provider';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { customTextInputTheme } from '@theme/flowbite';
@@ -27,7 +27,13 @@ const RsvpModal = () => {
 
     useEffect(() => {
         ModalController.setModalRef(modalRef)
+        console.log(openModal)
     }, [])
+    useEffect(() => {
+        if(openModal === 'rsvp') {
+            setTimeout(fadeIn, 80)
+        }
+    })
     
     useImperativeHandle(
         modalRef,
@@ -45,6 +51,19 @@ const RsvpModal = () => {
         }),
         []
     );
+
+    function fadeIn()
+    {
+        const modal = document.querySelector('#rsvp_modal') as HTMLInputElement
+        modal.classList.remove('opacity-0')
+    }
+
+    function fadeOut()
+    {
+        const modal = document.querySelector('#rsvp_modal') as HTMLInputElement
+        modal.classList.add('opacity-0')
+        setTimeout(() => setOpenModal(undefined), 300)
+    }
 
     async function updateInvitation(is_attending: boolean) {
         const pax = document.querySelector('#pax') as HTMLInputElement
@@ -215,7 +234,9 @@ const RsvpModal = () => {
 
     return (
         <>
-            <Modal dismissible show={openModal === 'rsvp'} size="7xl" onClose={() => setOpenModal(undefined)} theme={customModalTheme}>
+            <Modal id="rsvp_modal" dismissible show={openModal === 'rsvp'} size="7xl" onClose={async () => {
+                fadeOut() 
+            }} theme={customModalTheme} className={`transition-all duration-700 opacity-0`}>
                 <Modal.Header className="flex items-center justify-center rounded-t dark:border-gray-600 border-none p-5"></Modal.Header>
                 <Modal.Body className="flex-column sm:px-12 md:px-16 lg:px-24 xl:px-32 items-center text-center">
                     <p className="text-3xl md:text-5xl pb-6 font-bold">RSVP</p>
