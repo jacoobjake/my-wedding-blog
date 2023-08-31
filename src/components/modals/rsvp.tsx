@@ -154,7 +154,7 @@ const RsvpModal = () => {
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row items-center justify-center py-3">
-                        <p className="py-3">Please confirm your attendace for </p>
+                        <p className="py-3">Please confirm your attendance for </p>
                         <TextInput id="pax" type="text" theme={customTextInputTheme} className="px-3 w-1/3 md:w-1/6 lg:1/12" color="mine" sizing={"md"} defaultValue={currentUser.pax} />
                         <p>pax</p>
                     </div>
