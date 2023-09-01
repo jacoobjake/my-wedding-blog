@@ -6,7 +6,7 @@ const baseurl = process.env.NEXT_PUBLIC_API_URL
 
 export async function searchGuest(keyword : string)
 {
-    const url = `${baseurl}guests-by-details/?keyword=${keyword}`;
+    const url = `${baseurl}guests-by-details/?format=json&keyword=${keyword}`;
     const response = await axiosHelper('get', url);
     if(response) {
         return response.data.data;
@@ -24,7 +24,7 @@ export async function update(id:string, data:Object)
 
 export async function get(id:string)
 {
-    const url = `${baseurl}guests/${id}/`;
+    const url = `${baseurl}guests/${id}/?format=json`;
     const response = await axiosHelper('get', url)
     if (response) {
         return response.data.data;

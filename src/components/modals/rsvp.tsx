@@ -116,7 +116,7 @@ const RsvpModal = () => {
                                 id="remarks"
                                 placeholder="Reservation remarks, e.g: Allergen, number of infants, etc..."
                                 rows={2}
-                                value={currentUser.remarks}
+                                defaultValue={currentUser.remarks}
                                 className='text-center'
                             />
                         </div>
