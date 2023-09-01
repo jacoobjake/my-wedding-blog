@@ -27,7 +27,6 @@ const RsvpModal = () => {
 
     useEffect(() => {
         ModalController.setModalRef(modalRef)
-        console.log(openModal)
     }, [])
     useEffect(() => {
         if(openModal === 'rsvp') {
