@@ -5,14 +5,14 @@ import { toast } from 'react-toastify';
 
 async function get(url: string) {
     const response = await axios.get(url).catch(function (error) {
-        toast.error(error.response.data.message)
+        toast.error(error.response.data.detail)
     })
     return response;
 }
 
 async function patch(url: string, data: object) {
     const response = await axios.patch(url, data).catch(function (error) {
-        toast.error(error.response.data.message)
+        toast.error(error.response.data.detail)
     })
     return response;
 }

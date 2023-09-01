@@ -31,8 +31,8 @@ export default function Layout({
                         <main className="pt-14">
                             {children}
                         </main>
+                        <RsvpModal></RsvpModal>
                     </ToastProvider>
-                    <RsvpModal></RsvpModal>
                     <DefaultFooter></DefaultFooter>
                 </div>
             </body>
