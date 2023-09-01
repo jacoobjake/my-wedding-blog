@@ -43,10 +43,12 @@ export default async function Home() {
                     </div>
                 </div>
                 <div className="w-full items-center text-center py-12">
-                    <div className="flex-column mx-auto w-4/5 lg:w-3/5 px-6 sm:px-12 py-12 border-double border-8 items-center text-center">
+                    <div className="flex-column mx-auto w-4/5 px-6 sm:px-12 py-12 border-double border-8 items-center text-center">
                         <p className="text-xl pb-6 italic underline">Reception</p>
                         <img className="w-full h-auto" src="https://onedrive.live.com/embed?resid=332220CB5ABF1FD3%21388&authkey=%21AFJMjukNGlyuTws&width=1080&height=1080" alt="test"></img>
-                        <p className="md:text-2xl pt-12 pb-3">Nov 4, 2023</p>
+                        <p className="md:text-2xl pt-6 pb-6">Nov 4, 2023</p>
+                        <p className="text-[10px] md:text-xs lg:md:text-sm text-gray-500 italic font-bold">Guest Check-In - 5:00 PM</p>
+                        <p className="text-[10px] md:text-xs lg:md:text-sm text-gray-500 italic font-bold">Banquet Starts - 6:00 PM</p>
                         <p className="md:text-2xl py-6 leading-loose font-bold">Treasure Oasis Vegetarian Restaurant</p>
                         <p className="mx-auto md:text-base w-2/3">Viva Mall, Lot 2.07</p>
                         <p className="mx-auto md:text-base w-2/3">2nd Floor, Viva Home</p>
